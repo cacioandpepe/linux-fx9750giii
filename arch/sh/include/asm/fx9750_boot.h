@@ -7,18 +7,16 @@
 #define FX9750_ROM_VA              0xc0000000UL
 #define FX9750_ROM_MAX_SIZE        0x00400000UL
 
-/*
- * Persistent 1 KiB physical-block map.
- *
- * Current kernel:
- *   0x160000 / 0x400 = 1408 entries
- *
- * Two pages provide room for 2048 entries / 2 MiB of P3 ROM.
- */
+/* Persistent 1 KiB map and read-only RAM repairs for the P3 image. */
 #define SH7305_BOOT_1KMAP_PHYS     0x08060000UL
 #define SH7305_BOOT_1KMAP_P1       0x88060000UL
-#define SH7305_BOOT_1KMAP_SIZE     0x00002000UL
-#define SH7305_BOOT_1KMAP_MAX      2048u
+#define SH7305_BOOT_1KMAP_SIZE     0x00002800UL
+#define SH7305_BOOT_1KMAP_MAX      (SH7305_BOOT_1KMAP_SIZE / 4)
+
+#define SH7305_BOOT_REPAIR_PHYS    0x08062800UL
+#define SH7305_BOOT_REPAIR_SIZE    0x00001800UL
+#define SH7305_BOOT_FLASH_FIRST    0x00400000UL
+#define SH7305_BOOT_FLASH_END      0x00800000UL
 
 #define SH7305_BOOT_PGD_PHYS       0x08065000UL
 #define SH7305_BOOT_PTE_PHYS       0x08066000UL
@@ -47,5 +45,9 @@ struct fx9750_bootinfo {
 
 	unsigned int reserved[6];
 };
+
+#ifdef CONFIG_SH_FX9750GIII
+void fx9750_update_tlb_1k(unsigned long address, unsigned long phys);
+#endif
 
 #endif

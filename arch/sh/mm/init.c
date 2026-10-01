@@ -39,12 +39,13 @@ void __init generic_mem_init(void)
 	memblock_add(__MEMORY_START, __MEMORY_SIZE);
 
 #ifdef CONFIG_SH_FX9750GIII
-	/*
-	 * Persistent loader-supplied physical map for the fragmented
-	 * P3 kernel ROM.  2048 x 4-byte entries occupy 8 KiB.
-	 */
+	/* Keep the complete map, repaired ROM blocks, PTEs and bootinfo alive. */
 	memblock_reserve(SH7305_BOOT_1KMAP_PHYS,
 			 SH7305_BOOT_1KMAP_SIZE);
+	memblock_reserve(SH7305_BOOT_REPAIR_PHYS,
+			 SH7305_BOOT_REPAIR_SIZE);
+	memblock_reserve(SH7305_BOOT_PGD_PHYS,
+			 SH7305_BOOT_RESERVED_SIZE);
 #endif
 }
 

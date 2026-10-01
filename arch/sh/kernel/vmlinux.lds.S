@@ -116,8 +116,8 @@ SECTIONS
 	__sh7305_rom_size =
 		__sh7305_rom_end - __sh7305_rom_start;
 
-	ASSERT(__sh7305_rom_size <= 0x00400000,
-	       "fx9750: P3 ROM exceeds 4 MiB")
+	ASSERT(__sh7305_rom_size <= 0x00280000,
+	       "fx9750: P3 ROM exceeds the persistent 1 KiB map")
 
 
 	/* ---------------------------------------------------------
@@ -178,15 +178,9 @@ SECTIONS
 
 	__sh7305_ram_end = .;
 
-	/*
-	 * Leave these untouched:
-	 *
-	 * 88045000  bootstrap PGD
-	 * 88046000  P3 ROM PTE page
-	 * 88047000  bootinfo
-	 */
-	ASSERT(__sh7305_ram_end <= 0x88060000,
-	       "fx9750: P1 RAM image overlaps boot tables")
+	/* The loader needs a page-padded RAM image below temporary repairs. */
+	ASSERT(__sh7305_ram_end <= 0x8805e000,
+	       "fx9750: P1 RAM image overlaps loader RAM sources")
 
 #else
 
