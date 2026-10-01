@@ -27,7 +27,7 @@
  * Do not encode this through pte_t: bits 10/11 are physical PPN bits for
  * a 1 KiB entry but Linux uses them as software flags for >=4 KiB pages.
  */
-void __attribute__((section(".fx9750.tlbrefill.text")))
+void __attribute__((section(".sh7305.tlbrefill.text")))
 fx9750_update_tlb_1k(unsigned long address, unsigned long phys)
 {
 	unsigned long flags;
@@ -74,7 +74,7 @@ fx9750_update_tlb_1k(unsigned long address, unsigned long phys)
 #endif
 
 #ifdef CONFIG_SH_FX9750GIII
-void __attribute__((section(".fx9750.tlbrefill.text")))
+void __attribute__((section(".sh7305.tlbrefill.text")))
 #else
 void
 #endif
@@ -127,7 +127,7 @@ __update_tlb(struct vm_area_struct *vma, unsigned long address, pte_t pte)
 	local_irq_restore(flags);
 }
 
-void __attribute__((__noinline__, __section__(".fx9750.uncached.text"))) local_flush_tlb_one(unsigned long asid, unsigned long page)
+void __attribute__((__noinline__, __section__(".sh7305.uncached.text"))) local_flush_tlb_one(unsigned long asid, unsigned long page)
 {
 	unsigned long addr, data;
 
@@ -144,7 +144,7 @@ void __attribute__((__noinline__, __section__(".fx9750.uncached.text"))) local_f
 	back_to_cached();
 }
 
-void __attribute__((__noinline__, __section__(".fx9750.uncached.text"))) local_flush_tlb_all(void)
+void __attribute__((__noinline__, __section__(".sh7305.uncached.text"))) local_flush_tlb_all(void)
 {
 	unsigned long flags, status;
 	int i;

@@ -81,7 +81,7 @@ OFF_TRA	=  (16*4+6*4)
  * Must remain in P1 RAM.  This contains vbr_base and the
  * low-level exception/TLB entry paths.
  */
-.section .fx9750.entry.text,"ax"
+.section .sh7305.entry.text,"ax"
 #endif
 
 	

@@ -8,7 +8,7 @@
 #include <linux/module.h>
 
 #ifdef CONFIG_SH_FX9750GIII
-void notrace __attribute__((section(".fx9750.irqflags.text")))
+void notrace __attribute__((section(".sh7305.irqflags.text")))
 #else
 void notrace
 #endif
@@ -43,7 +43,7 @@ arch_local_irq_restore(unsigned long flags)
 EXPORT_SYMBOL(arch_local_irq_restore);
 
 #ifdef CONFIG_SH_FX9750GIII
-unsigned long notrace __attribute__((section(".fx9750.irqflags.text")))
+unsigned long notrace __attribute__((section(".sh7305.irqflags.text")))
 #else
 unsigned long notrace
 #endif

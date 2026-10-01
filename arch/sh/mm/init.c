@@ -43,8 +43,8 @@ void __init generic_mem_init(void)
 	 * Persistent loader-supplied physical map for the fragmented
 	 * P3 kernel ROM.  2048 x 4-byte entries occupy 8 KiB.
 	 */
-	memblock_reserve(FX9750_BOOT_1KMAP_PHYS,
-			 FX9750_BOOT_1KMAP_SIZE);
+	memblock_reserve(SH7305_BOOT_1KMAP_PHYS,
+			 SH7305_BOOT_1KMAP_SIZE);
 #endif
 }
 
@@ -327,20 +327,20 @@ void __init paging_init(void)
 		struct fx9750_bootinfo *bi =
 			(struct fx9750_bootinfo *)FX9750_BOOTINFO_P1;
 
-		if (bi->magic == FX9750_BOOT_MAGIC &&
-		    bi->version == FX9750_BOOT_VERSION &&
+		if (bi->magic == SH7305_BOOT_MAGIC &&
+		    bi->version == SH7305_BOOT_VERSION &&
 		    bi->rom_va == FX9750_ROM_VA &&
 		    bi->rom_pages > 0 &&
 		    bi->rom_pages <= 1024 &&
 		    bi->rom_1k_blocks > 0 &&
-		    bi->rom_1k_blocks <= FX9750_BOOT_1KMAP_MAX &&
-		    bi->rom_1k_map_p1 == FX9750_BOOT_1KMAP_P1) {
+		    bi->rom_1k_blocks <= SH7305_BOOT_1KMAP_MAX &&
+		    bi->rom_1k_map_p1 == SH7305_BOOT_1KMAP_P1) {
 			/*
 			 * 4 KiB pages -> one PGD slot covers 4 MiB.
 			 * The loader has already constructed this PTE page.
 			 */
 			swapper_pg_dir[FX9750_ROM_VA >> PGDIR_SHIFT] =
-				__pgd(FX9750_BOOT_PTE_P1);
+				__pgd(SH7305_BOOT_PTE_P1);
 		}
 	}
 #endif

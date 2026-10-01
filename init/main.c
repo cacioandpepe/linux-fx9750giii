@@ -1172,6 +1172,17 @@ void start_kernel(void)
 	kcsan_init();
 
 	/* Do the rest non-__init'ed, we're now alive */
+	/*
+	 * Temporary bring-up stop.
+	 *
+	 * The kernel is intentionally stopped here while the
+	 * Linux image is being packaged as a .g1a application.
+	 * Remove this loop when userspace/init bring-up begins.
+	 */
+	for (;;) {
+		cpu_relax();
+	}
+
 	rest_init();
 
 	/*

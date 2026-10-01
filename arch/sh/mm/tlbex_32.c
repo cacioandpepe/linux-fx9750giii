@@ -40,7 +40,7 @@ fx9750_rom_tlbmiss(unsigned long address)
 {
 	struct fx9750_bootinfo *bi =
 		(struct fx9750_bootinfo *)FX9750_BOOTINFO_P1;
-	pte_t *ptes = (pte_t *)FX9750_BOOT_PTE_P1;
+	pte_t *ptes = (pte_t *)SH7305_BOOT_PTE_P1;
 	unsigned long index;
 	pte_t entry;
 
@@ -56,8 +56,8 @@ fx9750_rom_tlbmiss(unsigned long address)
 	}
 
 	/* -1 means "not our special ROM range". */
-	if (bi->magic != FX9750_BOOT_MAGIC ||
-	    bi->version != FX9750_BOOT_VERSION)
+	if (bi->magic != SH7305_BOOT_MAGIC ||
+	    bi->version != SH7305_BOOT_VERSION)
 		return -1;
 
 	if (bi->rom_va != FX9750_ROM_VA ||
@@ -101,7 +101,7 @@ extern void fx9750_update_tlb_1k(unsigned long address,
  *    0 = mapping installed
  *    1 = address belongs to ROM but boot mapping is invalid
  */
-static int __attribute__((section(".fx9750.tlb.text")))
+static int __attribute__((section(".sh7305.tlb.text")))
 fx9750_refill_rom_1k(unsigned long address)
 {
 	struct fx9750_bootinfo *bi =
@@ -111,8 +111,8 @@ fx9750_refill_rom_1k(unsigned long address)
 	unsigned long block;
 	unsigned int phys;
 
-	if (bi->magic != FX9750_BOOT_MAGIC ||
-	    bi->version != FX9750_BOOT_VERSION ||
+	if (bi->magic != SH7305_BOOT_MAGIC ||
+	    bi->version != SH7305_BOOT_VERSION ||
 	    bi->rom_va != FX9750_ROM_VA ||
 	    !bi->rom_size ||
 	    bi->rom_size > FX9750_ROM_MAX_SIZE)
@@ -122,9 +122,9 @@ fx9750_refill_rom_1k(unsigned long address)
 	    address >= bi->rom_va + bi->rom_size)
 		return -1;
 
-	if (bi->rom_1k_map_p1 != FX9750_BOOT_1KMAP_P1 ||
+	if (bi->rom_1k_map_p1 != SH7305_BOOT_1KMAP_P1 ||
 	    !bi->rom_1k_blocks ||
-	    bi->rom_1k_blocks > FX9750_BOOT_1KMAP_MAX)
+	    bi->rom_1k_blocks > SH7305_BOOT_1KMAP_MAX)
 		return 1;
 
 	/*
@@ -157,7 +157,7 @@ fx9750_refill_rom_1k(unsigned long address)
  * Called with interrupts disabled.
  */
 #ifdef CONFIG_SH_FX9750GIII
-asmlinkage int __attribute__((section(".fx9750.tlb.text")))
+asmlinkage int __attribute__((section(".sh7305.tlb.text")))
 #else
 asmlinkage int __kprobes
 #endif

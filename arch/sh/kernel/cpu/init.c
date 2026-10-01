@@ -98,7 +98,7 @@ static void expmask_init(void)
 /* 2nd-level cache init */
 #ifdef CONFIG_SH_FX9750GIII
 void __attribute__((weak, __noinline__,
-                    __section__(".fx9750.uncached.text")))
+                    __section__(".sh7305.uncached.text")))
 l2_cache_init(void)
 {
 }
@@ -113,7 +113,7 @@ void __attribute__ ((weak)) l2_cache_init(void)
  */
 #if !defined(CONFIG_CPU_J2)
 #ifdef CONFIG_SH_FX9750GIII
-static void __attribute__((__noinline__, __section__(".fx9750.uncached.text")))
+static void __attribute__((__noinline__, __section__(".sh7305.uncached.text")))
 cache_init(void)
 #else
 static void cache_init(void)
