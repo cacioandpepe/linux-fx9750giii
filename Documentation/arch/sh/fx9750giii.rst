@@ -33,15 +33,6 @@ The calculator configuration is:
 
    arch/sh/configs/fx9750giii_defconfig
 
-TuxForge
-========
-
-This repository contains the Linux kernel port only.
-
-TuxForge is the complete Linux system/distribution built around this
-kernel port. The first TuxForge release for the fx-9750GIII will be
-TuxForge v0.1.
-
 Author
 ======
 
